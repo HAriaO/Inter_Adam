@@ -6,15 +6,15 @@ No official “public review API” or data export interface targeting all users
 
 However, third-party tools/platforms claim to scrape review data from ProductReview.com.au, such as:
 
-- Apify hosts the “Productreviews Reviews Spider” specifically designed to scrape ProductReview.com.au reviews, outputting structured JSON.
+- Apify hosts the “Productreviews Reviews Spider” specifically designed to scrape ProductReview.com.au reviews, outputting structured JSON. ($35/month)
 
 https://apify.com/getdataforme/productreviews-reviews-spider/api/python
 
-- Similarly, the “Product Reviews AU Scraper” also specifies targeting ProductReview.com.au for scraping.
+- Similarly, the “Product Reviews AU Scraper” also specifies targeting ProductReview.com.au for scraping.($10/month)
 
 https://apify.com/abotapi/product-reviews-australia-scraper/api?utm_source=chatgpt.com
 
-Note: Technically, ingestion is *feasible* since third-party scraping tools exist. However, from a compliance/stability perspective, you must verify copyright/platform policies, anti-scraping protections, data quality, and API sustainability.
+Note: verify copyright/platform policies, anti-scraping protections, data quality, and API sustainability.
 
 ### Structural Features from HTML
 
@@ -33,4 +33,8 @@ Note: Technically, ingestion is *feasible* since third-party scraping tools exis
 Request APIs: https://developers.trustpilot.com/authentication
 
 https://developers.trustpilot.com/data-solutions-get-started
+
+##### Issue:
+
+Cannot using personal email to apply Trustpilot business free account before getting the token to get API. It required the valid website of the company and other detailed company info. 
 
