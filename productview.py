@@ -1,27 +1,49 @@
 from bs4 import BeautifulSoup
+import csv
+import re
 
 with open("example1.html", "r", encoding="utf-8") as f:
     soup = BeautifulSoup(f, "html.parser")
 
-reviews = soup.find_all("div", {"title": "Click to expand"})
+# Find all reviews area
+reviews = soup.find_all("div", {"data-review-has-attachments": "false"})
 
 data = []
-for r in reviews:
-    review_id = r.get("id")
-    rating = r.find("span", {"class": "XsNkSe"}).text.strip() if r.find("span", {"class": "XsNkSe"}) else None
-    user = r.find("span", {"role": "link"})
-    user_name = user.text.strip() if user else None
-    date = r.find("time")
-    review_date = date.get("datetime") if date else None
-    text = r.find("p", {"class": "KI3F_J X9VBGa"})
-    review_text = text.text.strip() if text else None
+
+# Fetch the fields 
+for review in reviews:
+    review_id = review.get("data-track-impression", "")
+    # -- Review ID --
+    if "reviewId" in review_id:
+        review_id = review_id.split("reviewId·:·")[1].split("·")[0]
+
+    # -- Rating --
+    rating_tag = review.find("div", style=lambda x: x and "--pr-rating-score" in x)
+    rating = rating_tag["style"].split(":")[1].rstrip("}") if rating_tag else None
+     
+    # -- Username --
+    author_block = review.find("div", {"data-ctx-namespace": "author"})
+    username = None
+    if author_block:
+        username_span = author_block.find("span", class_=re.compile("aoI_35"))
+        if username_span:
+            username = username_span.get_text(strip=True)
+
+    # -- Review time
+    time = review.find("time")
+    review_date = time["datetime"] if time else None
 
     data.append({
         "review_id": review_id,
         "rating": rating,
-        "user_name": user_name,
-        "review_date": review_date,
-        "review_text": review_text
+        "username": username,
+        "review_date": review_date
     })
 
-print(data[:2])
+# 4. Write into CSV
+with open("dyson_reviews.csv", "w", newline="", encoding="utf-8") as csvfile:
+    writer = csv.DictWriter(csvfile, fieldnames=["review_id", "rating", "username", "review_date"])
+    writer.writeheader()
+    writer.writerows(data)
+
+print(f"There are {len(data)} reviews, saved as dyson_reviews.csv")
