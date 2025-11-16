@@ -1,0 +1,3 @@
+query,sentiment_score,positive_percent,negative_percent,neutral_percent,top_complaints,top_praises
+https://au.trustpilot.com/review/gomarkets.com,0.25,66,25,9,"Withdrawal delays, Poor customer support, Unfair profit adjustments, Slow response times, Account management issues","Responsive customer service, Fast execution and low spreads, User-friendly platform, Good trading conditions, Reliable support team"
+gomarkets.com,0.314,66,24,10,"Withdrawal delays, Poor customer support, Unfair profit removal, Slow response times, Account verification issues","Great customer service, Fast execution, Low spreads, User-friendly platform, Responsive account management"
